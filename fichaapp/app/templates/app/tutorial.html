@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container mt-5 d-flex align-items-center justify-content-center">
+    <div class="banner text-center">
+        <div class="banner-content">
+            <h1>TUTORIAL DE USO</h1>
+            <img src="{% static 'app/img/logo.jpeg' %}" class="img-fluid" alt="Logo de FichaApp">
+        </div>
+    </div>
+</div>
+
+<div class="container text-center">
+    <h2>Inicio de Sesión</h2>
+    <p>Para comenzar, inicia sesión en FichaApp. Puedes hacerlo haciendo clic en el botón "Iniciar Sesión".</p>
+    <img src="{% static 'app/img/admin.img.jpeg' %}" class="img-fluid" alt="">
+
+
+    <h2>Acceder a Reportes</h2>
+    <p>Una vez que hayas iniciado sesión, accede a la sección de "Reportes" desde la barra de navegación.</p>
+    <img src="{% static 'app/img/reportes.jpg' %}" class="img-fluid" alt="">
+
+    <h2>Acceder a Listado</h2>
+    <p>Una vez que hayas iniciado sesión, accede a la sección de "Listado" desde la barra de navegación.</p>
+    <img src="{% static 'app/img/listado.jpeg' %}" class="img-fluid" alt="">
+    
+    <h2>Crear Nuevo Reporte</h2>
+    <p>Dentro de la sección de reportes, encontrarás la opción para crear un nuevo reporte. Haz clic en el botón correspondiente y completa la información requerida.</p>
+    <img src="{% static 'app/img/crear.jpeg' %}" class="img-fluid" alt="">
+
+
+    <h2>Modificar y Eliminar</h2>
+    <p>Puedes modificar un reporte existente seleccionándolo desde la lista de reportes. Realiza los cambios necesarios y guarda la información actualizada.</p>
+    <img src="{% static 'app/img/modyelim.jpeg' %}" class="img-fluid" alt="">
+
+</div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // No olvides adaptar este script según tus necesidades específicas.
+        // Aquí se muestra un ejemplo del script del carrusel que proporcionaste anteriormente.
+        var myCarousel = new bootstrap.Carousel(document.getElementById('miCarrusel'), {
+            interval: 2000,
+            wrap: true
+        });
+    });
+</script>
+
+{% endblock %}

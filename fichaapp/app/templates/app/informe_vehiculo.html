@@ -1,0 +1,22 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+
+
+{% block contenido %}
+    <div class="container">
+        <h2>Informe del Vehículo</h2>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ camion.ppu }}</h5>
+                <p class="card-text">Marca: {{ camion.marca }}</p>
+                <p class="card-text">Modelo: {{ camion.modelo }}</p>
+                <p class="card-text">Año: {{ camion.anio }}</p>
+                <!-- Agrega más información según tus necesidades -->
+                
+            </div>
+        </div>
+
+        
+    </div>
+    {% endblock %}

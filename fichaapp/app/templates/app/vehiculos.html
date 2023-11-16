@@ -1,0 +1,32 @@
+
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block contenido %}
+    <div class="container">
+        <h2>Vehículos</h2>
+        <div class="row">
+            <form method="GET" action="{% url 'vehiculos' %}" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar por patente">
+                    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+                </div>
+            </form>
+            <div class="row">
+                {% for camion in camiones %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <a href="{% url 'informe_vehiculo' camion.id %}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ camion.ppu }}</h5>
+                                    <p class="card-text">Marca: {{ camion.marca }}</p>
+                                    <p class="card-text">Modelo: {{ camion.modelo }}</p>
+                                    <p class="card-text">Año: {{ camion.anio }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

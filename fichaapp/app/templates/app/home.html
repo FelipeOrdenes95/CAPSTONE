@@ -1,0 +1,60 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<div class="container mt-5 d-flex align-items-center justify-content-center">
+
+    <div class="banner text-center">
+        <div class="banner-content">
+            <img src="{% static 'app/img/logo.jpeg' %}" class="img-fluid" alt="Logo de FichaApp">
+            <h3>Optimiza la gestión de tus flotas de transporte</h3>
+        </div><br><br><br><br>
+    </div>
+
+</div>
+
+<div class="container text-center">
+    <div class="container text-center">
+        <div class="container text-center">
+            <h2 class="container text-center">Nuestra Visión</h2>
+            <p>Mejorar el control de las grandes empresas hacia sus empresas transportistas contratadas y llevar un
+                control eficiente de la flota es nuestra misión.</p>
+        </div>
+
+        <div class="container text-center">
+            <h2 class="container text-center">Nuestros Servicios</h2>
+            <ul>
+                <p>Monitoreo del estado de los vehículos</p>
+                <p>Programación de próximos monitores.</p>
+                <p>Optimización de la información de los vehículos.</p>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var myCarousel = new bootstrap.Carousel(document.getElementById('miCarrusel'), {
+            interval: 2000,  // Establece el intervalo en milisegundos (2 segundos en este caso)
+            wrap: true       // Permite el deslizamiento circular
+        });
+    });
+</script>
+
+<div class="container text-center">
+    <h2>Contacto</h2>
+    <p>Telefono: +569-59273942</p>
+    <p>Correo: Fichaapp@gmail.com</p>
+    <p>Ubicación: Las Condes</p>
+</div>
+
+
+{% endblock %}
+
+

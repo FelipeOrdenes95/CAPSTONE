@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block contenido %}
+<br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="login-form" style="background-color: #3498db; padding: 20px; border-radius: 10px;">
+                <h2 style="color: #fff; margin-top: 0;">FichaApp</h2>
+                <form method="post" style="display: flex; flex-direction: column;">
+                    {% csrf_token %}
+                    <label for="id_username" style="color: #fff;">Usuario:</label>
+                    <input type="text" id="id_username" name="username" style="padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
+                    <label for="id_password" style="color: #fff;">Contraseña:</label>
+                    <input type="password" id="id_password" name="password" style="padding: 5px; border: 1px solid #ccc; border-radius: 5px;">
+                    <br>
+                    <button type="submit" style="background-color: #fff; color: #3498db; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Iniciar Sesión</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
