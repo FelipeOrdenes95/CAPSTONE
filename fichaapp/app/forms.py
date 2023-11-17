@@ -8,6 +8,11 @@ class CamionForm(forms.ModelForm):
         model = Camion
         fields = ["ppu", "marca", "modelo", "anio", "ultima_inspeccion"]
 
+    def __init__(self, *args, **kwargs):
+        super(CamionForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs.update({'class': 'form-control', 'required': 'required'})
+
 class ExteriorCamionForm(forms.ModelForm):
     class Meta:
         model = ExteriorCamion

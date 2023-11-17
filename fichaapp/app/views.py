@@ -13,6 +13,7 @@ from .forms import (
     FotosForm
 )
 from django.forms import inlineformset_factory
+from django.contrib import messages
 
 
 
@@ -69,8 +70,36 @@ def nuevo_camion(request):
             electronica_formset.is_valid() and suspension_formset.is_valid() and motor_formset.is_valid() and 
             llantas_formset.is_valid() and escaner_formset.is_valid() and fotos_formset.is_valid()
         ):
+            nuevo_camion = camion_form.save(commit=False)
+            nuevo_camion.save()
+
+            exterior_formset.instance = nuevo_camion
+            exterior_formset.save()
+
+            interior_formset.instance = nuevo_camion
+            interior_formset.save()
+
+            electronica_formset.instance = nuevo_camion
+            electronica_formset.save()
+
+            suspension_formset.instance = nuevo_camion
+            suspension_formset.save()
+
+            motor_formset.instance = nuevo_camion
+            motor_formset.save()
+
+            llantas_formset.instance = nuevo_camion
+            llantas_formset.save()
+
+            escaner_formset.instance = nuevo_camion
+            escaner_formset.save()
+
+            fotos_formset.instance = nuevo_camion
+            fotos_formset.save()
+
+            return redirect('listar_camion')
             # Procesar los datos del formulario
-            pass
+           
     else:
         camion_form = CamionForm()
         exterior_formset = ExteriorCamionFormSet(instance=Camion())
@@ -107,22 +136,39 @@ def listar_camion(request):
     return render(request, 'app/camion/listar.html', data)
 
 
+from django.shortcuts import redirect
+
+from django.shortcuts import redirect
+
 def modificar_camion(request, camion_id):
     camion = get_object_or_404(Camion, id=camion_id)
-    
-    data = {
-        'form': CamionForm(instance=camion)
-    }
+
+    ExteriorCamionFormSet = inlineformset_factory(Camion, ExteriorCamion, form=ExteriorCamionForm, fields="__all__", extra=0)
+    InteriorCamionFormSet = inlineformset_factory(Camion, InteriorCamion, form=InteriorCamionForm, fields="__all__", extra=0)
 
     if request.method == 'POST':
         formulario = CamionForm(data=request.POST, files=request.FILES, instance=camion)
-        if formulario.is_valid():
+        exterior_formset = ExteriorCamionFormSet(request.POST, instance=camion)
+        interior_formset = InteriorCamionFormSet(request.POST, instance=camion)
+
+        if formulario.is_valid() and exterior_formset.is_valid() and interior_formset.is_valid():
             formulario.save()
-            messages.success(request, "Modificado correctamente")
-            return redirect(to="listar_camion")
-            data["mensaje"] = "Modificado con Éxito"
+            exterior_formset.save()
+            interior_formset.save()
+            messages.success(request, "Modificado con éxito")
+            return redirect('informe_vehiculo', camion_id=camion_id)
         else:
-            data["form"] = formulario
+            messages.error(request, "Hubo un error al modificar el camión")
+    else:
+        formulario = CamionForm(instance=camion)
+        exterior_formset = ExteriorCamionFormSet(instance=camion)
+        interior_formset = InteriorCamionFormSet(instance=camion)
+
+    data = {
+        'form': formulario,
+        'exterior_formset': exterior_formset,
+        'interior_formset': interior_formset,
+    }
 
     return render(request, 'app/camion/modificar.html', data)
 

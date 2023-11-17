@@ -67,7 +67,7 @@
             {% if not camion.fotos.imagen1 and not camion.fotos.imagen2 %}
             <p>No hay fotos disponibles</p>
             {% endif %}
-            <!-- Asegúrate de manejar los casos donde los modelos relacionados no existan -->
+            <a href="{% url 'modificar_camion' camion.id %}" class="btn btn-primary">Modificar</a>
         </div>
     </div>
 </div>
