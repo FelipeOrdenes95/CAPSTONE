@@ -3,20 +3,72 @@
 
 
 
-{% block contenido %}
-    <div class="container">
-        <h2>Informe del Vehículo</h2>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ camion.ppu }}</h5>
-                <p class="card-text">Marca: {{ camion.marca }}</p>
-                <p class="card-text">Modelo: {{ camion.modelo }}</p>
-                <p class="card-text">Año: {{ camion.anio }}</p>
-                <!-- Agrega más información según tus necesidades -->
-                
-            </div>
-        </div>
 
-        
+{% block contenido %}
+<div class="container">
+    <h1>Informe del Vehículo</h1>
+    <div class="card">
+        <div class="card-body">
+            {% if camion.imagen %}
+            <img src="{{ camion.imagen.url }}" alt="Imagen Principal del Vehículo">
+            {% else %}
+            <p>No hay imagen disponible</p>
+            {% endif %}
+            <h1 class="display-2">{{ camion.ppu }}</h1>
+            <p class="card-text">Marca: {{ camion.marca.nombre }}</p>
+            <p class="card-text">Modelo: {{ camion.modelo.nombre }}</p>
+            <p class="card-text">Año: {{ camion.anio }}</p>
+            <p class="card-text">Ultima Inspección: {{ camion.ultima_inspeccion }}</p>
+            <!-- Agrega más información según tus necesidades -->
+            <h3>Exterior del Camión</h3>
+            <p class="card-text">Puertas: {{ camion.exteriorcamion.puertas }}</p>
+            <p class="card-text">Espejos: {{ camion.exteriorcamion.espejos }}</p>
+            <!-- Repite para los campos restantes de ExteriorCamion -->
+
+            <h3>Interior del Camión</h3>
+            <p class="card-text">Tapiz: {{ camion.interiorcamion.tapiz }}</p>
+            <p class="card-text">Asientos: {{ camion.interiorcamion.asientos }}</p>
+            <!-- Repite para los campos restantes de InteriorCamion -->
+
+            <!-- Repite para los demás modelos relacionados -->
+
+            <h3>Electrónica y Seguridad</h3>
+            <p class="card-text">Luces Testigos: {{ camion.electronicaseguridad.luces_testigos }}</p>
+            <p class="card-text">Airbags: {{ camion.electronicaseguridad.airbags }}</p>
+            <!-- Repite para los campos restantes de ElectronicaSeguridad -->
+
+
+            <h3>Suspensión y Frenos</h3>
+            <p class="card-text">Dirección Funcionamiento: {{ camion.suspensionfrenos.direccion_funcionamiento }}</p>
+            <p class="card-text">Amortiguadores Condición: {{ camion.suspensionfrenos.amortiguadores_condicion }}</p>
+            <!-- Repite para los campos restantes de SuspensionFrenos -->
+
+            <h3>Motor</h3>
+            <p class="card-text">Condición Motor: {{ camion.motor.condicion_motor }}</p>
+            <p class="card-text">Ruido Motor: {{ camion.motor.ruido_motor }}</p>
+            <!-- Repite para los campos restantes de Motor -->
+
+            <h3>Llantas</h3>
+            <p class="card-text">Condición Neumáticos: {{ camion.llantas.condicion_neumaticos }}</p>
+            <!-- Repite para los campos restantes de Llantas -->
+
+            <h3>Escaner</h3>
+            <p class="card-text">Sistema ABS: {{ camion.escaner.sistema_abs }}</p>
+            <p class="card-text">ECU Transmisión: {{ camion.escaner.ecu_transmision }}</p>
+            <!-- Repite para los campos restantes de Escaner -->
+
+            <h3>Fotos</h3>
+            {% if camion.fotos.imagen1 %}
+            <img src="{{ camion.fotos.imagen1.url }}" alt="Imagen 1">
+            {% endif %}
+            {% if camion.fotos.imagen2 %}
+            <img src="{{ camion.fotos.imagen2.url }}" alt="Imagen 2">
+            {% endif %}
+            {% if not camion.fotos.imagen1 and not camion.fotos.imagen2 %}
+            <p>No hay fotos disponibles</p>
+            {% endif %}
+            <!-- Asegúrate de manejar los casos donde los modelos relacionados no existan -->
+        </div>
     </div>
-    {% endblock %}
+</div>
+{% endblock %}

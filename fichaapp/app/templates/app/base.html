@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+    <div class="collapse navbar-collapse d-md-none" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
             <h5 class="text-body-emphasis h4">Collapsed content</h5>
             <span class="text-body-secondary">Toggleable via the navbar brand.</span>
@@ -26,10 +26,11 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'listar_camion' %}">LISTADO</a>
-                    </li>
-
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'listar_camion' %}">LISTADO</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'tutorial' %}">Tutorial</a>
                     </li>
