@@ -5,7 +5,7 @@ from django.forms import inlineformset_factory
 class CamionForm(forms.ModelForm):
     class Meta:
         model = Camion
-        fields = ["ppu", "marca", "modelo", "anio", "ultima_inspeccion"]
+        fields = ["ppu", "marca", "modelo", "anio", "ultima_inspeccion", "imagen"]
 
     def __init__(self, *args, **kwargs):
         super(CamionForm, self).__init__(*args, **kwargs)

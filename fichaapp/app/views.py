@@ -1,26 +1,28 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-from django.forms import inlineformset_factory
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Camion, ExteriorCamion, InteriorCamion, ElectronicaSeguridad, SuspensionFrenos, Motor, Llantas, Escaner, Fotos
 from .forms import (
-    CamionForm, 
-    NuevoCamionForm, 
-    ExteriorCamionForm, 
-    InteriorCamionForm, 
-    ElectronicaSeguridadForm, 
-    SuspensionFrenosForm, 
-    MotorForm, 
-    LlantasForm, 
-    EscanerForm, 
-    FotosForm
+    CamionForm,
+    ExteriorCamionForm,
+    InteriorCamionForm,
+    ElectronicaSeguridadForm,
+    SuspensionFrenosForm,
+    MotorForm,
+    LlantasForm,
+    EscanerForm,
+    FotosForm,
 )
-
-# Importa ExteriorCamionFormSet y otros formsets necesarios
-from .forms import ExteriorCamionFormSet, InteriorCamionFormSet, ElectronicaSeguridadFormSet, SuspensionFrenosFormSet, MotorFormSet, LlantasFormSet, EscanerFormSet, FotosFormSet
+from django.forms import modelformset_factory, inlineformset_factory
 
 from django.contrib import messages
 
-
+ExteriorCamionFormSet = modelformset_factory(ExteriorCamion, form=ExteriorCamionForm, extra=1)
+InteriorCamionFormSet = modelformset_factory(InteriorCamion, form=InteriorCamionForm, extra=1)
+ElectronicaSeguridadFormSet = modelformset_factory(ElectronicaSeguridad, form=ElectronicaSeguridadForm, extra=1)
+SuspensionFrenosFormSet = modelformset_factory(SuspensionFrenos, form=SuspensionFrenosForm, extra=1)
+MotorFormSet = modelformset_factory(Motor, form=MotorForm, extra=1)
+LlantasFormSet = modelformset_factory(Llantas, form=LlantasForm, extra=1)
+EscanerFormSet = modelformset_factory(Escaner, form=EscanerForm, extra=1)
+FotosFormSet = modelformset_factory(Fotos, form=FotosForm, extra=1)
 
 def home(request):
     return render(request, 'app/home.html')
@@ -145,86 +147,34 @@ from django.shortcuts import redirect
 
 from django.shortcuts import redirect
 
+
+
 def modificar_camion(request, camion_id):
-    camion = get_object_or_404(Camion, id=camion_id)
-    formulario = CamionForm(instance=camion)
-
-    ExteriorCamionFormSet = inlineformset_factory(Camion, ExteriorCamion, form=ExteriorCamionForm, fields="__all__", extra=1)
-    InteriorCamionFormSet = inlineformset_factory(Camion, InteriorCamion, form=InteriorCamionForm, fields="__all__", extra=1)
-    ElectronicaSeguridadFormSet = inlineformset_factory(Camion, ElectronicaSeguridad, form=ElectronicaSeguridadForm, fields="__all__", extra=1)
-    SuspensionFrenosFormSet = inlineformset_factory(Camion, SuspensionFrenos, form=SuspensionFrenosForm, fields="__all__", extra=1)
-    MotorFormSet = inlineformset_factory(Camion, Motor, form=MotorForm, fields="__all__", extra=1)
-    LlantasFormSet = inlineformset_factory(Camion, Llantas, form=LlantasForm, fields="__all__", extra=1)
-    EscanerFormSet = inlineformset_factory(Camion, Escaner, form=EscanerForm, fields="__all__", extra=1)
-    FotosFormSet = inlineformset_factory(Camion, Fotos, form=FotosForm, fields="__all__", extra=1)
-
-    exterior_formset = ExteriorCamionFormSet(instance=camion)
-    interior_formset = InteriorCamionFormSet(instance=camion)
-    electronica_formset = ElectronicaSeguridadFormSet(instance=camion)
-    suspension_formset = SuspensionFrenosFormSet(instance=camion)
-    motor_formset = MotorFormSet(instance=camion)
-    llantas_formset = LlantasFormSet(instance=camion)
-    escaner_formset = EscanerFormSet(instance=camion)
-    fotos_formset = FotosFormSet(instance=camion)
-
+    camion = get_object_or_404(Camion, pk=camion_id)
+    
     if request.method == 'POST':
-        formulario = CamionForm(request.POST, instance=camion)
-        if formulario.is_valid():
-            formulario.save()
-
-            exterior_formset = ExteriorCamionFormSet(request.POST, instance=camion)
-            interior_formset = InteriorCamionFormSet(request.POST, instance=camion)
-            electronica_formset = ElectronicaSeguridadFormSet(request.POST, instance=camion)
-            suspension_formset = SuspensionFrenosFormSet(request.POST, instance=camion)
-            motor_formset = MotorFormSet(request.POST, instance=camion)
-            llantas_formset = LlantasFormSet(request.POST, instance=camion)
-            escaner_formset = EscanerFormSet(request.POST, instance=camion)
-            fotos_formset = FotosFormSet(request.POST, request.FILES, instance=camion)
-
-            if (
-                exterior_formset.is_valid() and interior_formset.is_valid() and 
-                electronica_formset.is_valid() and suspension_formset.is_valid() and motor_formset.is_valid() and 
-                llantas_formset.is_valid() and escaner_formset.is_valid() and fotos_formset.is_valid()
-            ):
-                exterior_formset.save()
-                interior_formset.save()
-                electronica_formset.save()
-                suspension_formset.save()
-                motor_formset.save()
-                llantas_formset.save()
-                escaner_formset.save()
-                fotos_formset.save()
-
-                return redirect('informe_vehiculo', camion_id=camion_id)
-
-    return render(
-        request,
-        'app/camion/modificar.html',
-        {
-            'camion': camion,
-            'formulario': formulario,
-            'exterior_formset': exterior_formset,
-            'interior_formset': interior_formset,
-            'electronica_formset': electronica_formset,
-            'suspension_formset': suspension_formset,
-            'motor_formset': motor_formset,
-            'llantas_formset': llantas_formset,
-            'escaner_formset': escaner_formset,
-            'fotos_formset': fotos_formset,
-        }
-    )
-
+        form = CamionForm(request.POST, instance=camion)
+        if form.is_valid():
+            form.save()
+            return redirect('informe_vehiculo', camion_id=camion.id)
+    else:
+        form = CamionForm(instance=camion)
+    
+    return render(request, 'app/modificar_camion.html', {'form': form, 'camion': camion})
+    
 def eliminar_camion(request, camion_id):
     camion = get_object_or_404(Camion, id=camion_id)
     camion.delete()
     return redirect('listar_camion')
 
 def informe_vehiculo(request, camion_id):
-    camion = get_object_or_404(Camion, pk=camion_id)
+    camion = get_object_or_404(Camion, id=camion_id)
     return render(request, 'app/informe_vehiculo.html', {'camion': camion})
 
 
 def vista_crear_camion(request):
+
+
     if request.method == 'POST':
         form = NuevoCamionForm(request.POST)
         if form.is_valid():
@@ -234,3 +184,15 @@ def vista_crear_camion(request):
     else:
         form = NuevoCamionForm()
     return render(request, 'nuevo.html', {'form': form})
+
+def editar_ficha_camion(request, camion_id):
+    camion = get_object_or_404(Camion, id=camion_id)
+    if request.method == 'POST':
+        form = CamionForm(request.POST, instance=camion)
+        if form.is_valid():
+            form.save()
+            return redirect('informe_vehiculo', camion_id=camion.id)
+    else:
+        form = CamionForm(instance=camion)
+    
+    return render(request, 'app/editar_ficha_camion.html', {'form': form, 'camion': camion})

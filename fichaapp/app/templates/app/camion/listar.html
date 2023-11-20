@@ -8,10 +8,17 @@
         <div class="card-body">
             <h2>Listado de camiones</h2>
             <div class="container text-center">
-                <a href="{% url 'nuevo_camion' %}" class="btn btn-primary btn-sm">Nuevo Vehículo</a>
+                <a href="{% url 'nuevo_camion' %}" class="btn btn-warning btn-sm">Nuevo Vehículo</a>
             </div>
             <hr>
-
+            <div class="row">
+                <form method="GET" action="{% url 'vehiculos' %}" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Buscar por patente">
+                        <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+                    </div>
+                </form>
+                <div class="row">
 
             <table class="table table-striped table-hover table-responsive-sm">
                 <tr>
@@ -19,7 +26,11 @@
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Año</th>
+                    <th>Fecha Inspección</th>
+                    <th>Estado</th>
                     <th>Opciones</th>
+                    
+                    
                 </tr>
 
                 {% for p in camiones %}
@@ -28,10 +39,10 @@
                     <td>{{ p.marca | upper }}</td>
                     <td>{{ p.modelo | upper }}</td>
                     <td>{{ p.anio | upper }}</td>
+                    <td>{{ p.ultima_inspeccion }}</td>
+                    <td>{{ p. }} </td>
                     <td>
-                        <a href="{% url 'modificar_camion' p.id %}" class="btn btn-info btn-sm">Modificar</a>
                         <a href="{% url 'eliminar_camion' p.id %}" class="btn btn-danger btn-sm">Eliminar</a>
-
                     </td>
                 </tr>
                 {% endfor %}
