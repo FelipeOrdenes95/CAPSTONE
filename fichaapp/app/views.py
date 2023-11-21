@@ -24,6 +24,9 @@ LlantasFormSet = modelformset_factory(Llantas, form=LlantasForm, extra=1)
 EscanerFormSet = modelformset_factory(Escaner, form=EscanerForm, extra=1)
 FotosFormSet = modelformset_factory(Fotos, form=FotosForm, extra=1)
 
+
+
+
 def home(request):
     return render(request, 'app/home.html')
 
@@ -187,12 +190,68 @@ def vista_crear_camion(request):
 
 def editar_ficha_camion(request, camion_id):
     camion = get_object_or_404(Camion, id=camion_id)
+
+    ExteriorCamionFormSet = inlineformset_factory(Camion, ExteriorCamion, form=ExteriorCamionForm, extra=1)
+    InteriorCamionFormSet = inlineformset_factory(Camion, InteriorCamion, form=InteriorCamionForm, extra=1)
+    ElectronicaSeguridadFormSet = inlineformset_factory(Camion, ElectronicaSeguridad, form=ElectronicaSeguridadForm, extra=1)
+    SuspensionFrenosFormSet = inlineformset_factory(Camion, SuspensionFrenos, form=SuspensionFrenosForm, extra=1)
+    MotorFormSet = inlineformset_factory(Camion, Motor, form=MotorForm, extra=1)
+    LlantasFormSet = inlineformset_factory(Camion, Llantas, form=LlantasForm, extra=1)
+    EscanerFormSet = inlineformset_factory(Camion, Escaner, form=EscanerForm, extra=1)
+    FotosFormSet = inlineformset_factory(Camion, Fotos, form=FotosForm, extra=1)
+
     if request.method == 'POST':
-        form = CamionForm(request.POST, request.FILES, instance=camion)
-        if form.is_valid():
-            form.save()
+        camion_form = CamionForm(request.POST, request.FILES, instance=camion)
+        exterior_formset = ExteriorCamionFormSet(request.POST, request.FILES, instance=camion)
+        interior_formset = InteriorCamionFormSet(request.POST, request.FILES, instance=camion)
+        electronica_formset = ElectronicaSeguridadFormSet(request.POST, request.FILES, instance=camion)
+        suspension_formset = SuspensionFrenosFormSet(request.POST, request.FILES, instance=camion)
+        motor_formset = MotorFormSet(request.POST, request.FILES, instance=camion)
+        llantas_formset = LlantasFormSet(request.POST, request.FILES, instance=camion)
+        escaner_formset = EscanerFormSet(request.POST, request.FILES, instance=camion)
+        fotos_formset = FotosFormSet(request.POST, request.FILES, instance=camion)
+
+        if (
+            camion_form.is_valid() and exterior_formset.is_valid() and interior_formset.is_valid() and
+            electronica_formset.is_valid() and suspension_formset.is_valid() and motor_formset.is_valid() and
+            llantas_formset.is_valid() and escaner_formset.is_valid() and fotos_formset.is_valid()
+        ):
+            camion_form.save()
+            exterior_formset.save()
+            interior_formset.save()
+            electronica_formset.save()
+            suspension_formset.save()
+            motor_formset.save()
+            llantas_formset.save()
+            escaner_formset.save()
+            fotos_formset.save()
+
             return redirect('informe_vehiculo', camion_id=camion.id)
+
     else:
-        form = CamionForm(instance=camion)
-    
-    return render(request, 'app/editar_ficha_camion.html', {'form': form, 'camion': camion})
+        camion_form = CamionForm(instance=camion)
+        exterior_formset = ExteriorCamionFormSet(instance=camion)
+        interior_formset = InteriorCamionFormSet(instance=camion)
+        electronica_formset = ElectronicaSeguridadFormSet(instance=camion)
+        suspension_formset = SuspensionFrenosFormSet(instance=camion)
+        motor_formset = MotorFormSet(instance=camion)
+        llantas_formset = LlantasFormSet(instance=camion)
+        escaner_formset = EscanerFormSet(instance=camion)
+        fotos_formset = FotosFormSet(instance=camion)
+
+    return render(
+        request,
+        'app/editar_ficha_camion.html',
+        {
+            'camion_form': camion_form,
+            'exterior_formset': exterior_formset,
+            'interior_formset': interior_formset,
+            'electronica_formset': electronica_formset,
+            'suspension_formset': suspension_formset,
+            'motor_formset': motor_formset,
+            'llantas_formset': llantas_formset,
+            'escaner_formset': escaner_formset,
+            'fotos_formset': fotos_formset,
+            'camion': camion,
+        }
+    )
