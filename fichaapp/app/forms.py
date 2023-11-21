@@ -117,3 +117,4 @@ class NuevoCamionForm(forms.ModelForm):
         super(NuevoCamionForm, self).__init__(*args, **kwargs)
         for field_name in self.fields:
             self.fields[field_name].widget.attrs.update({'class': 'form-control', 'required': 'required'})
+

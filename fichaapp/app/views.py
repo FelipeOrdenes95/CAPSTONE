@@ -188,7 +188,7 @@ def vista_crear_camion(request):
 def editar_ficha_camion(request, camion_id):
     camion = get_object_or_404(Camion, id=camion_id)
     if request.method == 'POST':
-        form = CamionForm(request.POST, instance=camion)
+        form = CamionForm(request.POST, request.FILES, instance=camion)
         if form.is_valid():
             form.save()
             return redirect('informe_vehiculo', camion_id=camion.id)
