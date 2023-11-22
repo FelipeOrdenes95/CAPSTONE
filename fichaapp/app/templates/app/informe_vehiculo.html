@@ -17,7 +17,19 @@
         </form>
     </div><br>
     <h1>INFORME DEL VEHÍCULO</h1>
+    <br><br><br>
 
+    <div>
+        <h1>ESTADO</h1>
+        <td>
+            {% if camion.estado %}
+            <p style="color:green;font-size:24px;">✅</p> <!-- Marca de verificación verde -->
+            {% else %}
+            <p style="color:red;font-size:24px;">❌</p> <!-- Marca de X roja -->
+            {% endif %}
+        </td>
+    </div>
+    <br><br><br>
 
     <div class="row justify-content-center mb-4">
         <div class="col-md-6 text-center">
@@ -93,17 +105,7 @@
         </div>
     </div>
     <br><br><br>
-    <div>
-        <h1>ESTADO</h1>
-        <td>
-            {% if camion.estado %}
-            <p style="color:green;font-size:24px;">✅</p> <!-- Marca de verificación verde -->
-            {% else %}
-            <p style="color:red;font-size:24px;">❌</p> <!-- Marca de X roja -->
-            {% endif %}
-        </td>
-    </div>
-    <br><br><br>
+    
 
     <div class="row mb-4">
         <div class="col-md-6">
@@ -135,17 +137,17 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <h3 class="p-2 bg-dark text-white">ELECTRONICA Y SEGURIDAD</h3>
-            <p class="card-text">Testigos del Tablero: {{ camion.electronicaSeguridad.luces_testigos }}</p>
-            <p class="card-text">Airbags: {{ camion.electronicaSeguridad.airbags }}</p>
-            <p class="card-text">Comentarios: {{ camion.electronicaSeguridad.comentarios }}</p>
+            <p class="card-text">Testigos del Tablero: {{ camion.electronicaseguridad.luces_testigos }}</p>
+            <p class="card-text">Airbags: {{ camion.electronicaseguridad.airbags }}</p>
+            <p class="card-text">Comentarios: {{ camion.electronicaseguridad.comentarios }}</p>
         </div>
 
         <div class="col-md-6">
             <h3 class="p-2 bg-dark text-white">SUSPENSIÓN Y FRENOS</h3>
-            <p class="card-text">Funcionamiento Dirección: {{ camion.suspensionFrenos.direccion_funcionamiento }}</p>
-            <p class="card-text">Condición Amortiguadores: {{ camion.suspensionFrenos.amortiguadores_condicion }}</p>
-            <p class="card-text">Estado de Frenos: {{ camion.suspensionFrenos.frenos_estado }}</p>
-            <p class="card-text">Comentarios: {{ camion.suspensionFrenos.comentarios }}</p>
+            <p class="card-text">Funcionamiento Dirección: {{ camion.suspensionfrenos.direccion_funcionamiento }}</p>
+            <p class="card-text">Condición Amortiguadores: {{ camion.suspensionfrenos.amortiguadores_condicion }}</p>
+            <p class="card-text">Estado de Frenos: {{ camion.suspensionfrenos.frenos_estado }}</p>
+            <p class="card-text">Comentarios: {{ camion.suspensionfrenos.comentarios }}</p>
         </div>
     </div>
     <br><br><br>
@@ -183,6 +185,8 @@
             <p class="card-text">Condición de Transmisión: {{ camion.motor.condicion_transmision }}</p>
             <p class="card-text">Comentarios: {{ camion.motor.comentarios }}</p>
         </div>
+
+
     </div>
     <br><br><br>
 
@@ -190,11 +194,11 @@
         <h3 class="p-2 bg-dark text-white">FOTOS</h3>
         {% if camion.fotos.imagen1 %}
         <img src="{{ camion.fotos.imagen1.url }}" alt="Imagen 1" class="img-fluid rounded"
-            style="max-width: 500px; max-height: 500px;">
+        style="max-width: 500px; max-height: 500px;">
         {% endif %}
         {% if camion.fotos.imagen2 %}
         <img src="{{ camion.fotos.imagen2.url }}" alt="Imagen 2" class="img-fluid rounded"
-            style="max-width: 500px; max-height: 500px;">
+        style="max-width: 500px; max-height: 500px;">
         {% endif %}
         {% if not camion.fotos.imagen1 and not camion.fotos.imagen2 %}
         <p>No hay fotos disponibles</p>
