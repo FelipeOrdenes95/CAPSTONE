@@ -30,16 +30,16 @@
             <br><br><br><br>
 
 
-            <h2 style="color: rgb(240, 24, 24);">{{ camion.ppu }}</h2>
+            <h2 class="p-2 bg-success text-white">{{ camion.ppu }}</h2>
 
             <div class="row mb-4">
                 <div class="col-md-6">
-                    <h5 class="card-text">Marca</h5>
+                    <h5 class="p-2 bg-info text-white">Marca</h5>
                     <h2>{{ camion.marca.nombre }}</h2><br>
                 </div>
 
                 <div class="col-md-6">
-                    <h5 class="card-text">Modelo </h5>
+                    <h5 class="p-2 bg-info text-white">Modelo </h5>
                     <h2>{{ camion.modelo.nombre }}</h2><br>
                 </div>
             </div>
@@ -47,12 +47,12 @@
 
             <div class="row mb-4">
                 <div class="col-md-6">
-                    <h5 class="card-text">Año</h5>
+                    <h5 class="p-2 bg-info text-white">Año</h5>
                     <h2>{{ camion.anio }}</h2>
                 </div>
 
                 <div class="col-md-6">
-                    <h5 class="card-text">Kilometraje Actual</h5>
+                    <h5 class="p-2 bg-info text-white">Kilometraje Actual</h5>
                     <h2>{{ camion.km }}</h2>
                 </div>
             </div><br>
@@ -61,12 +61,12 @@
 
             <div class="row mb-4">
                 <div class="col-md-6">
-                    <h3 class="card-text">Revisión Técnica</h3>
+                    <h3 class="p-2 bg-info text-white">Revisión Técnica</h3>
                     <h5>{{ camion.revision_tecnica }}</h2>
                 </div>
 
                 <div class="col-md-6">
-                    <h3 class="card-text">Periso de circulación</h3>
+                    <h3 class="p-2 bg-info text-white">Periso de circulación</h3>
                     <h5>{{ camion.permiso_circulacion }}</h5>
                 </div>
             </div><br>
@@ -75,19 +75,19 @@
 
             <div class="row mb-4">
                 <div class="col-md-6">
-                    <h3 class="card-text">Última inspección</h3>
+                    <h3 class="p-2 bg-info text-white">Última inspección</h3>
                     <h5>{{ camion.ultima_inspeccion }}</h5>
                 </div>
 
                 <div class="col-md-6">
 
-                    <h2 class="card-text">SOAP</h2>
+                    <h2 class="p-2 bg-info text-white">SOAP</h2>
                     <h5>{{ camion.soap }}</h5><br>
                 </div>
             </div><br>
 
-            <h3 class="card-text" style="color: rgb(56, 183, 24);">Próxima Inspección</h3>
-            <h5 style="color: rgb(56, 183, 24);">{{ camion.proxima_inspeccion }}</h5>
+            <h3 class="p-2 bg-warning text-white">Próxima Inspección</h3>
+            <h5 class="p-2 bg-danger text-white">{{ camion.proxima_inspeccion }}</h5>
 
 
         </div>
@@ -107,7 +107,7 @@
 
     <div class="row mb-4">
         <div class="col-md-6">
-            <h3>EXTERIOR DEL CAMIÓN</h3>
+            <h3 class="p-2 bg-dark text-white">EXTERIOR DEL CAMIÓN</h3>
             <p class="card-text">Puertas: {{ camion.exteriorcamion.puertas }}</p>
             <p class="card-text">Espejos: {{ camion.exteriorcamion.espejos }}</p>
             <p class="card-text">Ventanas: {{ camion.exteriorcamion.ventanas }}</p>
@@ -119,7 +119,7 @@
         </div>
 
         <div class="col-md-6">
-            <h3>INTERIOR DEL CAMIÓN</h3>
+            <h3 class="p-2 bg-dark text-white">INTERIOR DEL CAMIÓN</h3>
             <p class="card-text">Tapiz: {{ camion.interiorcamion.tapiz }}</p>
             <p class="card-text">Asientos: {{ camion.interiorcamion.asientos }}</p>
             <p class="card-text">Talero: {{ camion.interiorcamion.talero }}</p>
@@ -134,14 +134,14 @@
 
     <div class="row mb-4">
         <div class="col-md-6">
-            <h3>ELECTRONICA Y SEGURIDAD</h3>
+            <h3 class="p-2 bg-dark text-white">ELECTRONICA Y SEGURIDAD</h3>
             <p class="card-text">Testigos del Tablero: {{ camion.electronicaSeguridad.luces_testigos }}</p>
             <p class="card-text">Airbags: {{ camion.electronicaSeguridad.airbags }}</p>
             <p class="card-text">Comentarios: {{ camion.electronicaSeguridad.comentarios }}</p>
         </div>
 
         <div class="col-md-6">
-            <h3>SUSPENSIÓN Y FRENOS</h3>
+            <h3 class="p-2 bg-dark text-white">SUSPENSIÓN Y FRENOS</h3>
             <p class="card-text">Funcionamiento Dirección: {{ camion.suspensionFrenos.direccion_funcionamiento }}</p>
             <p class="card-text">Condición Amortiguadores: {{ camion.suspensionFrenos.amortiguadores_condicion }}</p>
             <p class="card-text">Estado de Frenos: {{ camion.suspensionFrenos.frenos_estado }}</p>
@@ -152,7 +152,25 @@
 
     <div class="row mb-4">
         <div class="col-md-6">
-            <h3>MOTOR</h3>
+            <h3 class="p-2 bg-dark text-white">ESCANER</h3>
+            <p class="card-text">Sistema ABS: {{ camion.escaner.sistema_abs }}</p>
+            <p class="card-text">Ecu Transmisión: {{ camion.escaner.ecu_transmision }}</p>
+            <p class="card-text">Ecu Airbag: {{ camion.escaner.ecu_airbag }}</p>
+            <p class="card-text">Comentarios: {{ camion.escaner.comentarios }}</p>
+        </div>
+
+        <div class="col-md-6">
+            <h3 class="p-2 bg-dark text-white">LLANTAS</h3>
+            <p class="card-text">Condición de Neumáticos: {{ camion.llantas.condicion_neumaticos }}</p>
+            <p class="card-text">Comentarios: {{ camion.llantas.comentarios }}</p>
+        </div>
+
+    </div>
+    <br><br><br>
+
+    <div class="row mb-4">
+        <div class="container text-center">
+            <h3 class="p-2 bg-dark text-white">MOTOR</h3>
             <p class="card-text">Condición del Motor: {{ camion.motor.condicion_motor }}</p>
             <p class="card-text">Rudio de Motor: {{ camion.motor.ruido_motor }}</p>
             <p class="card-text">Cableado: {{ camion.motor.cableado }}</p>
@@ -165,29 +183,11 @@
             <p class="card-text">Condición de Transmisión: {{ camion.motor.condicion_transmision }}</p>
             <p class="card-text">Comentarios: {{ camion.motor.comentarios }}</p>
         </div>
-
-        <div class="col-md-6">
-            <h3>ESCANER</h3>
-            <p class="card-text">Sistema ABS: {{ camion.escaner.sistema_abs }}</p>
-            <p class="card-text">Ecu Transmisión: {{ camion.escaner.ecu_transmision }}</p>
-            <p class="card-text">Ecu Airbag: {{ camion.escaner.ecu_airbag }}</p>
-            <p class="card-text">Comentarios: {{ camion.escaner.comentarios }}</p>
-        </div>
-
     </div>
     <br><br><br>
 
     <div class="row mb-4">
-        <div class="col-md-6">
-            <h3>LLANTAS</h3>
-            <p class="card-text">Condición de Neumáticos: {{ camion.llantas.condicion_neumaticos }}</p>
-            <p class="card-text">Comentarios: {{ camion.llantas.comentarios }}</p>
-        </div>
-    </div>
-    <br><br><br>
-
-    <div class="row mb-4">
-        <h3>FOTOS</h3>
+        <h3 class="p-2 bg-dark text-white">FOTOS</h3>
         {% if camion.fotos.imagen1 %}
         <img src="{{ camion.fotos.imagen1.url }}" alt="Imagen 1" class="img-fluid rounded"
             style="max-width: 500px; max-height: 500px;">
