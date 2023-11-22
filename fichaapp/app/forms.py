@@ -6,7 +6,7 @@ from django.db import models
 class CamionForm(forms.ModelForm):
     class Meta:
         model = Camion
-        fields = ["ppu", "marca", "modelo", "anio", "ultima_inspeccion", "imagen", "estado"]
+        fields = ["ppu", "marca", "modelo", "anio", "revision_tecnica","permiso_circulacion","soap","km", "ultima_inspeccion","proxima_inspeccion", "imagen","estado"]
 
     def as_text(self):
         estado = self.cleaned_data.get('estado')
@@ -15,7 +15,7 @@ class CamionForm(forms.ModelForm):
         elif estado is False:
             return '❌' 
         else:
-            return 'Por definir' 
+            return 'Por definir'  # Opción para estado desconocido
 
     def clean_estado(self):
         estado = self.cleaned_data.get('estado')

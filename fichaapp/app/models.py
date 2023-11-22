@@ -27,7 +27,13 @@ class Camion(models.Model):
     anio = models.IntegerField()
     ultima_inspeccion = models.DateField()
     imagen = models.ImageField(upload_to='camion_fotos/', null=True, blank=True)
-    estado = models.BooleanField(null=True) 
+    estado = models.BooleanField(null=True)
+    proxima_inspeccion = models.DateField(null=True, blank=True)
+    revision_tecnica = models.DateField(null=True, blank=True)
+    permiso_circulacion = models.DateField(null=True, blank=True)
+    soap = models.DateField(null=True, blank=True)
+    km = models.IntegerField(null=True, blank=True)
+
 
     def __str__(self):
         return self.ppu

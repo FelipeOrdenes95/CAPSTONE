@@ -12,13 +12,13 @@
         <form method="post">
             {% csrf_token %}
             {{ formulario.as_p }}
-            
+
             <a href="{% url 'editar_ficha_camion' camion_id=camion.id %}" class="btn btn-warning">Editar Ficha</a>
         </form>
     </div><br>
     <h1>INFORME DEL VEHÍCULO</h1>
 
-    
+
     <div class="row justify-content-center mb-4">
         <div class="col-md-6 text-center">
             {% if camion.imagen %}
@@ -31,10 +31,65 @@
 
 
             <h2 style="color: rgb(240, 24, 24);">{{ camion.ppu }}</h2>
-            <h5 class="card-text">Marca: {{ camion.marca.nombre }}</h5>
-            <h5 class="card-text">Modelo: {{ camion.modelo.nombre }}</h5>
-            <h5 class="card-text">Año: {{ camion.anio }}</h5>
-            <h5 class="card-text">Ultima Inspección: {{ camion.ultima_inspeccion }}</h5>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5 class="card-text">Marca</h5>
+                    <h2>{{ camion.marca.nombre }}</h2><br>
+                </div>
+
+                <div class="col-md-6">
+                    <h5 class="card-text">Modelo </h5>
+                    <h2>{{ camion.modelo.nombre }}</h2><br>
+                </div>
+            </div>
+
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h5 class="card-text">Año</h5>
+                    <h2>{{ camion.anio }}</h2>
+                </div>
+
+                <div class="col-md-6">
+                    <h5 class="card-text">Kilometraje Actual</h5>
+                    <h2>{{ camion.km }}</h2>
+                </div>
+            </div><br>
+
+
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h3 class="card-text">Revisión Técnica</h3>
+                    <h5>{{ camion.revision_tecnica }}</h2>
+                </div>
+
+                <div class="col-md-6">
+                    <h3 class="card-text">Periso de circulación</h3>
+                    <h5>{{ camion.permiso_circulacion }}</h5>
+                </div>
+            </div><br>
+
+
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h3 class="card-text">Última inspección</h3>
+                    <h5>{{ camion.ultima_inspeccion }}</h5>
+                </div>
+
+                <div class="col-md-6">
+
+                    <h2 class="card-text">SOAP</h2>
+                    <h5>{{ camion.soap }}</h5><br>
+                </div>
+            </div><br>
+
+            <h3 class="card-text" style="color: rgb(56, 183, 24);">Próxima Inspección</h3>
+            <h5 style="color: rgb(56, 183, 24);">{{ camion.proxima_inspeccion }}</h5>
+
+
         </div>
     </div>
     <br><br><br>
@@ -42,9 +97,9 @@
         <h1>ESTADO</h1>
         <td>
             {% if camion.estado %}
-                <p style="color:green;font-size:24px;">✅</p> <!-- Marca de verificación verde -->
+            <p style="color:green;font-size:24px;">✅</p> <!-- Marca de verificación verde -->
             {% else %}
-                <p style="color:red;font-size:24px;">❌</p> <!-- Marca de X roja -->
+            <p style="color:red;font-size:24px;">❌</p> <!-- Marca de X roja -->
             {% endif %}
         </td>
     </div>
