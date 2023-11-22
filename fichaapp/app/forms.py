@@ -1,16 +1,28 @@
 from django import forms
 from .models import ExteriorCamion, InteriorCamion, ElectronicaSeguridad, SuspensionFrenos, Motor, Llantas, Escaner, Fotos, Camion
 from django.forms import inlineformset_factory
+from django.db import models
 
 class CamionForm(forms.ModelForm):
     class Meta:
         model = Camion
-        fields = ["ppu", "marca", "modelo", "anio", "ultima_inspeccion", "imagen"]
+        fields = ["ppu", "marca", "modelo", "anio", "ultima_inspeccion", "imagen", "estado"]
 
-    def __init__(self, *args, **kwargs):
-        super(CamionForm, self).__init__(*args, **kwargs)
-        for field_name in self.fields:
-            self.fields[field_name].widget.attrs.update({'class': 'form-control', 'required': 'required'})
+    def as_text(self):
+        estado = self.cleaned_data.get('estado')
+        if estado is True:
+            return '✅' 
+        elif estado is False:
+            return '❌' 
+        else:
+            return 'Por definir' 
+
+    def clean_estado(self):
+        estado = self.cleaned_data.get('estado')
+        if estado is None:  # Si el estado es desconocido
+            return None  # Permite que el campo estado sea nulo en la base de datos
+        return estado
+
 
 class ExteriorCamionForm(forms.ModelForm):
     class Meta:
@@ -111,7 +123,7 @@ FotosFormSet = inlineformset_factory(
 class NuevoCamionForm(forms.ModelForm):
     class Meta:
         model = Camion
-        fields = ["ppu", "marca", "modelo", "anio", "ultima_inspeccion"]
+        fields = ["ppu", "marca", "modelo", "anio", "ultima_inspeccion","estado"]
 
     def __init__(self, *args, **kwargs):
         super(NuevoCamionForm, self).__init__(*args, **kwargs)

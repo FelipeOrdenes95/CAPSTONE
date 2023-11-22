@@ -1,0 +1,31 @@
+<table class="table table-striped table-hover table-responsive-sm">
+    <tr>
+        <th>PPU</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Año</th>
+        <th>Fecha Inspección</th>
+        <th>Estado</th>
+        <th>Opciones</th>
+    </tr>
+
+    {% for camion in camiones %}
+    <tr>
+        <td>{{ camion.ppu | upper }}</td>
+        <td>{{ camion.marca | upper }}</td>
+        <td>{{ camion.modelo | upper }}</td>
+        <td>{{ camion.anio | upper }}</td>
+        <td>{{ camion.ultima_inspeccion }}</td>
+        <td>
+            {% if camion.estado %}
+                <p style="color:green;font-size:24px;">✅</p>
+            {% else %}
+                <p style="color:red;font-size:24px;">❌</p>
+            {% endif %}
+        </td>
+        <td>
+            <a href="{% url 'eliminar_camion' camion.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>

@@ -7,9 +7,18 @@
 {% block contenido %}
 
 <div class="container text-center">
+    <br>
+    <div class="container text-center">
+        <form method="post">
+            {% csrf_token %}
+            {{ formulario.as_p }}
+            
+            <a href="{% url 'editar_ficha_camion' camion_id=camion.id %}" class="btn btn-warning">Editar Ficha</a>
+        </form>
+    </div><br>
     <h1>INFORME DEL VEHÍCULO</h1>
 
-    <!-- Imagen del vehículo -->
+    
     <div class="row justify-content-center mb-4">
         <div class="col-md-6 text-center">
             {% if camion.imagen %}
@@ -18,6 +27,8 @@
             {% else %}
             <p>No hay imagen disponible</p>
             {% endif %}
+            <br><br><br><br>
+
 
             <h2 style="color: rgb(240, 24, 24);">{{ camion.ppu }}</h2>
             <h5 class="card-text">Marca: {{ camion.marca.nombre }}</h5>
@@ -25,6 +36,17 @@
             <h5 class="card-text">Año: {{ camion.anio }}</h5>
             <h5 class="card-text">Ultima Inspección: {{ camion.ultima_inspeccion }}</h5>
         </div>
+    </div>
+    <br><br><br>
+    <div>
+        <h1>ESTADO</h1>
+        <td>
+            {% if camion.estado %}
+                <p style="color:green;font-size:24px;">✅</p> <!-- Marca de verificación verde -->
+            {% else %}
+                <p style="color:red;font-size:24px;">❌</p> <!-- Marca de X roja -->
+            {% endif %}
+        </td>
     </div>
     <br><br><br>
 
@@ -112,29 +134,24 @@
     <div class="row mb-4">
         <h3>FOTOS</h3>
         {% if camion.fotos.imagen1 %}
-        <img src="{{ camion.fotos.imagen1.url }}" alt="Imagen 1" class="img-fluid rounded" style="max-width: 500px; max-height: 500px;">
+        <img src="{{ camion.fotos.imagen1.url }}" alt="Imagen 1" class="img-fluid rounded"
+            style="max-width: 500px; max-height: 500px;">
         {% endif %}
         {% if camion.fotos.imagen2 %}
-        <img src="{{ camion.fotos.imagen2.url }}" alt="Imagen 2" class="img-fluid rounded" style="max-width: 500px; max-height: 500px;">
+        <img src="{{ camion.fotos.imagen2.url }}" alt="Imagen 2" class="img-fluid rounded"
+            style="max-width: 500px; max-height: 500px;">
         {% endif %}
         {% if not camion.fotos.imagen1 and not camion.fotos.imagen2 %}
         <p>No hay fotos disponibles</p>
         {% endif %}
     </div>
 
-    
+
 
 
 
     <br><br><br>
-    <div class="container text-center">
-        <form method="post">
-            {% csrf_token %}
-            {{ formulario.as_p }}
-            <!-- ... tu informe del vehículo ... -->
-            <a href="{% url 'editar_ficha_camion' camion_id=camion.id %}" class="btn btn-warning">Editar Ficha</a>
-        </form>
-    </div>
+
 </div>
 
 

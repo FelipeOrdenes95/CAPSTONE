@@ -8,6 +8,7 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ camion_form.as_p }}
+        
 
         <h2>EXTERIOR CAMION</h2>
         {{ exterior_formset.management_form }}

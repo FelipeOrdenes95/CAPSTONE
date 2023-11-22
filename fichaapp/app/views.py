@@ -255,3 +255,11 @@ def editar_ficha_camion(request, camion_id):
             'camion': camion,
         }
     )
+
+def buscar_camion(request):
+    query = request.GET.get('query', '')
+    
+   
+    camiones = Camion.objects.filter(ppu__icontains=query)
+    
+    return render(request, 'app/busqueda_resultados.html', {'camiones': camiones})  
