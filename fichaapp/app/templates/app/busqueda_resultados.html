@@ -6,7 +6,11 @@
         <th>Año</th>
         <th>Fecha Inspección</th>
         <th>Estado</th>
+
+
+        {% if perms.app.delete_camion %}
         <th>Opciones</th>
+        {% endif %}
     </tr>
 
     {% for camion in camiones %}
@@ -18,13 +22,17 @@
         <td>{{ camion.ultima_inspeccion }}</td>
         <td>
             {% if camion.estado %}
-                <p style="color:green;font-size:24px;">✅</p>
+            <p style="color:green;font-size:24px;">✅</p>
             {% else %}
-                <p style="color:red;font-size:24px;">❌</p>
+            <p style="color:red;font-size:24px;">❌</p>
             {% endif %}
         </td>
+
+
         <td>
-            <a href="{% url 'eliminar_camion' camion.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+            {% if perms.app.delete_camion %}
+            <a href="{% url 'eliminar_camion' p.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+            {% endif %}
         </td>
     </tr>
     {% endfor %}
