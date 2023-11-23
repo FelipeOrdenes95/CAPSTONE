@@ -18,7 +18,8 @@
             <span class="text-body-secondary">Toggleable via the navbar brand.</span>
         </div>
     </div>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="background-image: url('{% static 'app/img/1.jpg' %}'); background-size: cover;">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark"
+        style="background-image: url('{% static 'app/img/1.jpg' %}'); background-size: cover;">
 
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'home' %}">
@@ -26,22 +27,33 @@
             </a>
             <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
                 <ul class="navbar-nav me-auto">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="btn btn-warning" aria-current="page" href="{% url 'listar_camion' %}">LISTADO VEHÍCULOS</a>                        
-                            <a class="btn btn-warning" aria-current="page" href="{% url 'vehiculos' %}">REPORTES</a>
+                    <li class="nav-item">
+
+                        {% if perms.app.view_camion %}
+                        <a class="btn btn-warning" aria-current="page" href="{% url 'listar_camion' %}">LISTADO
+                            VEHÍCULOS</a>
                         {% endif %}
+
+
+                        {% if perms.app.add_camion %}
+                        <a href="{% url 'nuevo_camion' %}" class="btn btn-warning" aria-current="page">NUEVO CAMION</a>
+                        {% endif %}
+
+                        {% if perms.app.change_camion %}
+                        <a class="btn btn-warning" aria-current="page" href="{% url 'vehiculos' %}">REPORTES</a>
+                        {% endif %}
+
                     </li>
                 </ul>
 
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         {% if user.is_authenticated %}
-                            
-                            <a href="#" class="btn btn-dark  " > {{ user.username }} </a>
-                            <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar Sesión</a>
+
+                        <a href="#" class="btn btn-dark  "> {{ user.username }} </a>
+                        <a href="{% url 'logout' %}" class="btn btn-danger">Cerrar Sesión</a>
                         {% else %}
-                            <a href="{% url 'login' %}" class="btn btn-success">Iniciar Sesión</a>
+                        <a href="{% url 'login' %}" class="btn btn-success">Iniciar Sesión</a>
                         {% endif %}
                     </li>
                 </ul>
@@ -51,9 +63,9 @@
 
     <div id="contenido">
         {% if messages %}
-            {% for m in messages %}
-                {{ m }}
-            {% endfor %}
+        {% for m in messages %}
+        {{ m }}
+        {% endfor %}
         {% endif %}
 
         {% block contenido %}
@@ -63,7 +75,7 @@
             <img src="{% static 'app/img/logo1.jpeg' %}" class="img-fluid" alt="Logo de FichaApp">
         </div>
     </div>
-    
+
 </body>
 
 

@@ -15,6 +15,8 @@ from django.forms import modelformset_factory, inlineformset_factory
 
 from django.contrib import messages
 
+from django.contrib.auth.decorators import login_required, permission_required
+
 ExteriorCamionFormSet = modelformset_factory(ExteriorCamion, form=ExteriorCamionForm, extra=1)
 InteriorCamionFormSet = modelformset_factory(InteriorCamion, form=InteriorCamionForm, extra=1)
 ElectronicaSeguridadFormSet = modelformset_factory(ElectronicaSeguridad, form=ElectronicaSeguridadForm, extra=1)
@@ -32,7 +34,9 @@ def home(request):
 
 def tutorial(request):
     return render(request, 'app/tutorial.html')
-    
+
+
+@permission_required('app.change_camion','app.add_camion')
 def vehiculos(request):
     camiones = Camion.objects.all()
 
@@ -43,7 +47,7 @@ def vehiculos(request):
 
     return render(request, 'app/vehiculos.html', {'camiones': camiones})
 
-
+@permission_required('app.add_camion')
 def nuevo_camion(request):
     camion_form = CamionForm()
     ExteriorCamionFormSet = inlineformset_factory(Camion, ExteriorCamion, form=ExteriorCamionForm, fields="__all__", extra=1)
@@ -137,6 +141,8 @@ def nuevo_camion(request):
         }
     )
 
+
+@permission_required('app.view_camion')
 def listar_camion(request):
     camiones = Camion.objects.all()
 
@@ -146,12 +152,12 @@ def listar_camion(request):
     return render(request, 'app/camion/listar.html', data)
 
 
-from django.shortcuts import redirect
-
-from django.shortcuts import redirect
 
 
 
+
+
+@permission_required('app.change_camion')
 def modificar_camion(request, camion_id):
     camion = get_object_or_404(Camion, pk=camion_id)
     
@@ -164,17 +170,20 @@ def modificar_camion(request, camion_id):
         form = CamionForm(instance=camion)
     
     return render(request, 'app/modificar_camion.html', {'form': form, 'camion': camion})
-    
+
+
+@permission_required('app.delete_camion')   
 def eliminar_camion(request, camion_id):
     camion = get_object_or_404(Camion, id=camion_id)
     camion.delete()
     return redirect('listar_camion')
 
+@permission_required('app.add_camion')
 def informe_vehiculo(request, camion_id):
     camion = get_object_or_404(Camion, id=camion_id)
     return render(request, 'app/informe_vehiculo.html', {'camion': camion})
 
-
+@permission_required('app.add_camion')
 def vista_crear_camion(request):
 
 
@@ -188,6 +197,8 @@ def vista_crear_camion(request):
         form = NuevoCamionForm()
     return render(request, 'nuevo.html', {'form': form})
 
+
+@permission_required('app.change_camion')
 def editar_ficha_camion(request, camion_id):
     camion = get_object_or_404(Camion, id=camion_id)
 
